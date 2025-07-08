@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    image: spring-app
+    command: mvn spring-boot:run
+    volumes:
+      - .:/app
+      - maven_repo:/root/.m2
+    ports:
+      - 8080:8080
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: postgres:16.4-alpine3.20
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env.db
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  maven_repo:
+    driver: local

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>P2P Transfer - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .card { background-color: #e3f2fd; }
+    .btn-primary { background-color: #0d6efd; }
+    .navbar { background-color: white; }
+    .logo {
+        font-size: 2.5rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .logo span.pay { color: #002f8d; }
+    .logo span.peer { color: #0d6efd; }
+    .nav-link { color: #002f8d; }
+    .nav-link:hover { color: #0d6efd; }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <h1 class="logo"><span class="pay">PAY</span><span class="peer">PEER</span></h1>
+    </a>
+    <div class="navbar-nav">
+      <a class="nav-link" href="/transfer">Transfer</a>
+      <a class="nav-link" href="/logout">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h2>Welcome, <span th:text="${user.fullName}"></span> !</h2>
+
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      Create New Account
+    </div>
+    <div class="card-body">
+      <form action="/account/create" method="post">
+        <div class="mb-3">
+          <label for="initialBalance" class="form-label">Initial Balance</label>
+          <input type="number" step="0.01" min="0" class="form-control" id="initialBalance" name="initialBalance" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <h3 class="mt-4">Your Accounts</h3>
+  <div class="row">
+    <div class="col-md-4" th:each="account : ${accounts}">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Account: <span th:text="${account.accountNumber}"></span></h5>
+          <p class="card-text">Balance: $<span th:text="${account.balance}"></span></p>
+          <a th:href="@{/history(accountNumber=${account.accountNumber})}" class="btn btn-primary btn-sm">Transaction History</a>
+          <form action="/account/close" method="post" class="d-inline">
+            <input type="hidden" name="accountNumber" th:value="${account.accountNumber}">
+            <button type="submit" class="btn btn-danger btn-sm">Close Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
