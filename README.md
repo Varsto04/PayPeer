@@ -10,7 +10,7 @@ PayPeer — это приложение Spring Boot для управления 
 - **История транзакций**: отображает историю переводов для каждой учетной записи.
 
 ## Подробности реализации
-- **Tech Stack**: Spring Boot 3.5.3, JdbcTemplate, PostgreSQL, Thymeleaf, Bootstrap 5.3.0.
+- **Tech Stack**: Spring Boot 3.5.3, JdbcTemplate, PostgreSQL, Thymeleaf, Bootstrap 5.3.0, Docker.
 - **Database**: используется PostgreSQL с таблицами для пользователей, учетных записей и других данных.
 - **UI**: адаптивный интерфейс на основе Bootstrap (HTML + CSS) с синей цветовой палитрой (#0d6efd, #e3f2fd) и пользовательским стилем логотипа.
 
